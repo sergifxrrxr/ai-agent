@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      dockerfile: fastapi/Dockerfile
+    ports:
+      - 5005:5005
+    volumes:
+      - ./chatbot:/home
+    networks:
+      - chatbot-net
+
+  ollama:
+    build:
+      context: ./ollama
+      dockerfile: Dockerfile
+    ports:
+      - 11434:11434
+    volumes:
+      - ./ollama-models:/.ollama/models
+    networks:
+      - chatbot-net
+
+networks:
+  chatbot-net:
+    driver: bridge
