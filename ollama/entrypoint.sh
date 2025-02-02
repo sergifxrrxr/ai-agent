@@ -1,6 +1,9 @@
 #!/bin/bash
 
 ollama serve &
+
+ollama create ai-travel-agent -f Modelfile
+
 sleep 5
-ollama pull llama3.1
+
 wait $!

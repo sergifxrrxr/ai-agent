@@ -19,6 +19,13 @@ services:
       - ./ollama-models:/root/.ollama/models
     networks:
       - chatbot-net
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
 
 networks:
   chatbot-net:

@@ -4,11 +4,11 @@ RUN apt-get update -y && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV APP_HOME /app
-WORKDIR $APP_HOME
+ENV APP_HOME /src
+WORKDIR /src
 
-COPY . ./
+COPY fastapi/requirements.txt requirements.txt
 
-RUN pip install -r fastapi/requirements.txt
+RUN pip install -r requirements.txt
 
 CMD exec uvicorn app:app --host '0.0.0.0' --port 5005
