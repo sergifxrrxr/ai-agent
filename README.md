@@ -51,10 +51,10 @@ The system handles user input and generates responses from the AI. The AI will p
 
 #### Example Request:
 ```bash
-curl -X POST "http://localhost:5005/chat?user_input=Book%20The%20Ritz%20from%202025-07-01%20to%202025-07-05%20for%202%20adults&session_id=12345"
+curl -X POST "http://localhost:5005/chat?user_input=Book%20Magic%20Ski%20from%202025-07-01%20to%202025-07-05%20for%202%20adults&session_id=12345"
 ```
 
-#### Example Response:
+#### Example Response from the LLM:
 ```json
 {
   "action": "book",
@@ -65,4 +65,12 @@ curl -X POST "http://localhost:5005/chat?user_input=Book%20The%20Ritz%20from%202
   "children": 0
 }
 ```
+When the FastAPI receives this JSON response, it will parse the content and create the booking in the SQLite database (You can check this info with the SQLite web GUI deployed at http://localhost:8080). When the booking is created, user will receive this message:
 
+```json
+{
+  "session_id": "12345"
+  "status": "OK",
+  "message": "Your booking for Magic Ski from 2025-07-01 until 2025-07-05 for 2 adults and 0 children has been created successfully! Your booking id is 654321."
+}
+```
