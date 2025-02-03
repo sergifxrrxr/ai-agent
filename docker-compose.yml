@@ -20,6 +20,27 @@ services:
     networks:
       - chatbot-net
 
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./redis-data:/data
+    networks:
+      - chatbot-net
+
+  sqlite-web:
+    image: coleifer/sqlite-web
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./sqlite-data/data.db:/data/data.db
+    entrypoint: ["sqlite_web", "/data/data.db"]
+    networks:
+      - chatbot-net
+
 networks:
   chatbot-net:
     driver: bridge

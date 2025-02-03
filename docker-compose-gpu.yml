@@ -6,6 +6,7 @@ services:
       - 5005:5005
     volumes:
       - ./src:/src
+      - ./sqlite-data/:/data/
     networks:
       - chatbot-net
 
@@ -26,6 +27,27 @@ services:
               - driver: nvidia
                 count: 1
                 capabilities: [gpu]
+              
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./redis-data:/data
+    networks:
+      - chatbot-net
+
+  sqlite-web:
+    image: coleifer/sqlite-web
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./sqlite-data/:/data/
+    entrypoint: ["sqlite_web", "/data/data.db", "--host=0.0.0.0"]
+    networks:
+      - chatbot-net
 
 networks:
   chatbot-net:

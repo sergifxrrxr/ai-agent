@@ -1,2 +1,4 @@
 ollama-models
+redis-data
+sqlite-data
 src/__pycache__
