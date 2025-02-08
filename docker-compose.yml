@@ -2,10 +2,20 @@ services:
   api:
     build:
       dockerfile: fastapi/Dockerfile
-    ports:
-      - 5005:5005
     volumes:
-      - ./src:/src
+      - ./src/fastapi:/src
+      - ./sqlite-data/:/data/
+    networks:
+      - chatbot-net
+
+  gradio:
+    build:
+      dockerfile: gradio/Dockerfile
+    ports:
+      - 80:7860
+    volumes:
+      - ./src/gradio:/src
+      - ./sqlite-data/:/data/
     networks:
       - chatbot-net
 
@@ -13,8 +23,6 @@ services:
     build:
       context: ./ollama
       dockerfile: Dockerfile
-    ports:
-      - 11434:11434
     volumes:
       - ./ollama-models:/root/.ollama/models
     networks:
@@ -23,21 +31,8 @@ services:
   redis:
     image: redis:7-alpine
     restart: always
-    ports:
-      - '6379:6379'
     volumes:
       - ./redis-data:/data
-    networks:
-      - chatbot-net
-
-  sqlite-web:
-    image: coleifer/sqlite-web
-    restart: always
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./sqlite-data/data.db:/data/data.db
-    entrypoint: ["sqlite_web", "/data/data.db"]
     networks:
       - chatbot-net
 
