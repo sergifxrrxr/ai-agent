@@ -1,0 +1,38 @@
+#chatbot {
+    height: 70vh !important;
+    width: 100% !important;
+}
+
+.gradio-container {
+    max-width: 100% !important;
+    padding: 20px !important;
+}
+
+#bookings-table {
+    font-size: 12px !important;
+    overflow: hidden !important;
+}
+
+#bookings-table .dataframe {
+    width: 100% !important;
+}
+
+#bookings-table .gradio-dataframe {
+    overflow: hidden !important;
+}
+
+#bookings-table table {
+    overflow: hidden !important;
+}
+
+h2 {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}

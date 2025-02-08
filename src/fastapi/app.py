@@ -6,11 +6,8 @@ from typing import Dict, List
 import subprocess
 import json
 import uuid
-from init_db import init_db
 
 app = FastAPI()
-
-init_db()
 
 redis_client = redis.Redis(host="redis", port=6379, db=0, decode_responses=True)
 
@@ -57,10 +54,10 @@ def get_intent(user_input: str, session_id: str):
         if isinstance(intent, dict) and "action" in intent:
             return intent
         else:
-            return {"response": message_content}
+            return {"message": message_content}
     except json.JSONDecodeError:
         save_message_to_session(session_id, "assistant", message_content)
-        return {"response": message_content}
+        return {"message": message_content}
 
 @app.post("/chat")
 def chat(user_input: str, session_id: str = None):

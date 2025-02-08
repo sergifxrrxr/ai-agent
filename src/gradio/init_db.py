@@ -1,6 +1,9 @@
 import sqlite3
+import os
 
 DB_PATH = "/data/data.db"
+with open(DB_PATH, 'a'):
+    os.utime(DB_PATH, None) 
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
