@@ -38,7 +38,7 @@ Disclaimer: This project is only intended for educational purposes.
    docker compose -f docker-compose-gpu.yml up
    ```
 
-3. Wait until the model is successfully downloaded. This can take some time depending on your network speed, as the default model defined in Modelfile (phi4) size is about 9.1GB. Once the model is installed successfully, you should be able to perform requests to the API.
+3. Wait until the model is successfully downloaded. This can take some time depending on your network speed, as the default model defined in Modelfile (phi4) size is about 9.1GB. Once the model is installed successfully, Ollama will be ready to process requests.
 
 4.  You can now access the GUI through ```http://localhost:80```
 
