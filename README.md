@@ -1,7 +1,7 @@
 # AI Travel Agent
 
 ## Overview
-This project is an AI-powered travel agent that can book hotels, cancel bookings and change check-in/check-out dates through natural language using a Large Language Model (LLM) with FastAPI. The AI processes user requests and interacts with external scripts to execute the required actions.
+This project is an AI-powered travel agent/chatbot that can book hotels, cancel bookings and change check-in/check-out dates through natural language using a Large Language Model (LLM). The AI processes user requests and interacts with external scripts to execute the required actions.
 
 Disclaimer: This project is only intended for educational purposes.
 
@@ -17,12 +17,13 @@ Disclaimer: This project is only intended for educational purposes.
 - **Docker**: For containerization and deployment.
 - **Redis**: For session and conversation history storage.
 - **SQLite**: Is the database where bookings info is stored.
+- **Gradio**: Technology used for the chatbot interface
 
 ## Installation
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/ai-travel-agent.git
+   git clone https://github.com/joeltaberne/ai-travel-agent.git
    cd ai-travel-agent
    ```
 2. Run the project through docker-compose:
@@ -31,7 +32,7 @@ Disclaimer: This project is only intended for educational purposes.
    docker compose up
    ```
 
-   You can run the LLM with GPU acceleration using docker-compose-gpu.yml. You may need to follow the [previous steps](https://docs.docker.com/engine/containers/resource_constraints/#gpu) before being able to use GPU acceleration in Docker.
+   You can run the Ollama container with GPU acceleration using docker-compose-gpu.yml. You may need to follow the [previous steps](https://docs.docker.com/engine/containers/resource_constraints/#gpu) before being able to use GPU acceleration in Docker.
 
    ```bash
    docker compose -f docker-compose-gpu.yml up
@@ -39,38 +40,12 @@ Disclaimer: This project is only intended for educational purposes.
 
 3. Wait until the model is successfully downloaded. This can take some time depending on your network speed, as the default model defined in Modelfile (phi4) size is about 9.1GB. Once the model is installed successfully, you should be able to perform requests to the API.
 
-## API Endpoints
-### `POST /chat`
-The system handles user input and generates responses from the AI. The AI will prompt the user for information until it identifies the intended action and gathers all the necessary data to complete that action. Once all required data is collected, the model will respond with a JSON object. This JSON response will be processed by FastAPI, which will execute the corresponding action on the database and return a fixed response to the user.
+4.  You can now access the GUI through ```http://localhost:80```
 
-#### Query Parameters:
-| Parameter  | Type   | Description |
-|-----------|--------|-------------|
-| `user_input` | `string` | The message from the user. |
-| `session_id` | `string` | Unique session identifier. It is generated at the first request, and it must be added to the next ones so the model can access the conversation history and give more accurate responses.|
+## Usage
 
-#### Example Request:
-```bash
-curl -X POST "http://localhost:5005/chat?user_input=Book%20Magic%20Ski%20from%202025-07-01%20to%202025-07-05%20for%202%20adults&session_id=12345"
-```
+![image](https://github.com/user-attachments/assets/d32704b2-2ca7-4f7c-97a3-ff418a642e51)
 
-#### Example Response from the LLM:
-```json
-{
-  "action": "book",
-  "hotel": "Magic Ski",
-  "check_in": "2025-07-01",
-  "check_out": "2025-07-05",
-  "adults": 2,
-  "children": 0
-}
-```
-When the FastAPI receives this JSON response, it will parse the content and create the booking in the SQLite database (You can check this info with the SQLite web GUI deployed at http://localhost:8080). When the booking is created, user will receive this message:
+On the left side, you can interact with the model. Once a conversation has ended, you can clear the chat to start a new conversation with no context or previous history.
 
-```json
-{
-  "session_id": "12345"
-  "status": "OK",
-  "message": "Your booking for Magic Ski from 2025-07-01 until 2025-07-05 for 2 adults and 0 children has been created successfully! Your booking id is 654321."
-}
-```
+On the right side, the bookings made through the agent and its data will appear. When you create, modify, or cancel a booking, make sure to use the Refresh button to get updated information.
