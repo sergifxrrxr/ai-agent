@@ -1,7 +1,7 @@
 # AI Travel Agent
 
 ## Overview
-This project is an AI-powered travel agent/chatbot that can book hotels, cancel bookings and change check-in/check-out dates through natural language using a Large Language Model (LLM). The AI processes user requests and interacts with external scripts to execute the required actions.
+This project is an AI-powered travel agent/chatbot that can book hotels, cancel bookings and change check-in/check-out dates through natural language using a customized Large Language Model (LLM). The AI processes user requests and interacts with external scripts to execute the required actions.
 
 Disclaimer: This project is only intended for educational purposes.
 
