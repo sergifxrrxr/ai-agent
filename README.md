@@ -5,6 +5,8 @@ This project is an AI-powered travel agent/chatbot that can book hotels, cancel 
 
 Disclaimer: This project is only intended for educational purposes.
 
+![image](https://github.com/user-attachments/assets/4a2a56c1-78d0-423e-8029-1ca001323635)
+
 ## Features
 - **Book a hotel**: Users can specify hotel name, check-in/out dates, and number of guests to create a booking in the database.
 - **Cancel a booking**: Users provide a booking ID to cancel a reservation. The booking will be deleted from the database on cancel.
